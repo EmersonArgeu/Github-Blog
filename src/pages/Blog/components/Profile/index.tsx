@@ -1,33 +1,11 @@
 import { ArrowSquareOut, GithubLogo, Buildings, Users } from 'phosphor-react'
 
 import { Details, Header, ProfileContainer, ProfileContent } from './style'
-import { api } from '../../../../lib/axios'
-import { useEffect, useState } from 'react'
-
-interface QueryDataTypes {
-  avatar_url: string
-  name: string
-  html_url: string
-  bio: string
-  login: string
-  company: string
-  followers: number
-}
+import { useContext } from 'react'
+import { QueryContext } from '../../../../contexts/QueryContext'
 
 export function Profile() {
-  const [userData, setUserData] = useState<QueryDataTypes>({} as QueryDataTypes)
-
-  async function queryData() {
-    const response = await api.get('users/EmersonArgeu')
-
-    setUserData(response.data)
-  }
-
-  console.log(userData)
-
-  useEffect(() => {
-    queryData()
-  }, [])
+  const { userData } = useContext(QueryContext)
 
   return (
     <ProfileContainer>

@@ -7,8 +7,25 @@ import {
   ChatCircle,
   GithubLogo,
 } from 'phosphor-react'
+import { relativeDateFormatter } from '../../../../utils/fomatter'
 
-export function PostDetailsCard() {
+interface PostDetailsCardProps {
+  title: string
+  comments: number
+  username: string
+  createdAt: string
+  url: string
+}
+
+export function PostDetailsCard({
+  title,
+  comments,
+  username,
+  createdAt,
+  url,
+}: PostDetailsCardProps) {
+  const formattedDate = relativeDateFormatter(createdAt)
+
   return (
     <DetailsPostContainer>
       <header>
@@ -16,25 +33,26 @@ export function PostDetailsCard() {
           <CaretLeft color="#3294F8" size={14} weight="bold" />
           <Link to="/">VOLTAR</Link>
         </nav>
-        <a href="">
+        <a href={url}>
           VER NO GITHUB
           <ArrowSquareOut color="#3294F8" size={14} />
         </a>
       </header>
       <main>
-        <strong>JavaScript data types and data structures</strong>
+        <strong>{title}</strong>
       </main>
       <footer>
         <span>
           <GithubLogo color="#7B96B2" size={18} />
-          cameronwll
+          {username}
         </span>
         <span>
           <Calendar color="#7B96B2" size={18} />
-          Há 1 dia
+          {formattedDate}
         </span>
         <span>
-          <ChatCircle color="#7B96B2" size={18} />5 comentários
+          <ChatCircle color="#7B96B2" size={18} />
+          {comments} comentários
         </span>
       </footer>
     </DetailsPostContainer>
